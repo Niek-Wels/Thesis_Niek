@@ -1,0 +1,135 @@
+% Lines starting with % are comments: they do not appear in the PDF.
+
+% ---- Settings: what kind of document and which extra packages ----
+\documentclass[11pt,a4paper]{report}   % report: a document with chapters
+\usepackage[utf8]{inputenc}            % allows letters with accents
+\usepackage{graphicx}                  % for figures
+\usepackage[margin=2.5cm]{geometry}    % page margins
+
+% ---- References (APA style) ----
+% The references live in references.bib. Cite them with their key:
+%   \parencite{voigt2025} -> (Voigt et al., 2025)
+%   \textcite{voigt2025}  -> Voigt et al. (2025)
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Makes citations, URLs and DOIs clickable in the PDF (keep this package last).
+% colorlinks gives coloured text instead of boxes; use [hidelinks] for plain black links.
+\usepackage[colorlinks=true, citecolor=blue, linkcolor=black, urlcolor=blue]{hyperref}
+
+\title{Point Taken: Can AI reduce annotation costs for Sample based area estimation for landcover classification change}
+\author{Niek}
+\date{\today}
+
+% ---- Everything you write goes between begin{document} and end{document} ----
+\begin{document}
+
+\maketitle   % prints the title page from \title, \author and \date above
+
+\chapter{Introduction}
+
+Deforestation is a significant cause of greenhouse gas emissions \parencite{masolele2021}. Monitoring
+deforestation is mandated by international agreements, for participating countries \parencite{voigt2025}, such as the REDD+
+(Reducing Emissions from Deforestation and Forest Degradation) programme of the United Nations Framework
+Convention on Climate Change (UNFCCC). This programme requires developing countries to report changes in land-cover and offers
+subsidies to countries that demonstrate a verified reduction in carbon emissions resulting from the land-cover change.
+
+To verify this reduction, Sample-Based Area Estimation (SBAE) is used. SBAE is
+a statistical method that estimates the area of land-cover classes from a
+probability sample of random observations \parencite{jonckheere2024}. For
+land-cover change, the area of change is inferred from the sample points
+observed to change class between dates.
+
+Pixel counting from a classified map gives biased area estimates, as omission
+and commission errors do not cancel out \parencite{olofsson2014}. 
+SBAE avoids this bias by estimating area from reference labels at randomly
+selected sample points, each weighted by the area it represents \parencite{olofsson2014}.
+Secondly, SBAE quantifies the uncertainty of the area estimate as a confidence
+interval, which pixel counting cannot provide \parencite{olofsson2014}. Reporting
+this uncertainty is required under the UNFCCC \parencite{ipcc2019}, and higher
+uncertainty can reduce REDD+ results-based payments \parencite{jonckheere2024}.
+%add more reasons we can think of during supervisor meeting this way it will directly be clear why this would work better than classifying
+
+Because higher uncertainty can reduce REDD+ results-based payments, uncertainty
+should be kept as low as possible. The most direct way to achieve this is to
+increase the number of sample points. As land-cover change is rare, estimating
+it precisely requires even more samples \parencite{pagliarella2018}.
+
+Currently, sample points are labelled by human annotators using
+high-resolution imagery such as Google Earth \parencite{olofsson2014}.
+This is time-consuming, and for the large samples needed to estimate rare
+change it is often not feasible within reporting deadlines
+\parencite{jonckheere2024}. In this thesis, annotation costs therefore refer to the
+time annotators spend labelling the sample points of an SBAE.
+Machine-learning approaches, in particular deep learning, can reduce this
+burden by labelling part of the sample automatically, so that a sufficient
+number of sample points is reached in less time \parencite{jonckheere2024}.
+
+Human interpretation is also subjective, as interpreters can assign different
+labels to the same sample point \parencite{pengra2020, gfoi2018}. Such errors
+can bias area estimates, and variability among interpreters increases their
+uncertainty \parencite{masolele2021, jonckheere2024}. A model applies the
+same criteria to every sample point.
+
+One promising type of such models is the foundation model. Foundation models are
+pretrained in a self-supervised way on large amounts of broad, unlabelled data,
+through which they learn general patterns and relationships in that data
+\parencite{szwarcman2025}. This thesis uses a geospatial foundation model: a
+foundation model pretrained on large amounts of satellite imagery. It is based on
+the Vision Transformer (ViT) architecture \parencite{dosovitskiy2021} and was
+pretrained by reconstructing masked patches of satellite images
+\parencite{szwarcman2025}. Because of these previously learned patterns,
+geospatial foundation models can outperform models trained from scratch, such as
+CNNs \parencite{simumba2025, szwarcman2025}. Because they start from this pretrained base, they may also need less
+labelled data than a model trained from scratch to reach accurate results
+\parencite{szwarcman2025}.
+
+A human relavate how condifdent it is about a point, a Ai can not, since it is important to
+know how certain the ai is about certain points a confidence score needs to be created.
+
+
+Model confidence
+To know how sure the model is the easiest way of cofidence score can be taken, te certainity of the first class and the second
+this quantifies how likely it could have been an other class and thus how certain it is.
+
+The Researchs aim, is to look into the potential of AI as a support tool for human
+annotators to reduce the annotation costs. 
+
+
+%from a probability sample of reference observations, 
+%rather than by counting pixels in a classified map.”
+
+
+
+
+% NOTES (from before, kept as comments so they do not show in the PDF):
+% Copy the feedback of Susanne its very helpfull use that part of the introduction and critically look at what is
+% needsed and whats not
+% Notes: Focus more on Ai in the introduction
+% Explain why SBAE is superior over landcover classification segmentation over the entire area.
+% One reason is that REDD just requires condifdence intervals, which just landcover mapping wont give you, also due
+% to the interest in rare classes (change), it could not work when doing landcover change since that is harder to
+% model thus more errors
+% by sending the confident AI points to a human it wont lose accuracy, this is important to state so also do not
+% claim it will become more accuracte just more efficeitn
+
+Write your text here. A single Enter does nothing:
+this sentence continues on the same line in the PDF. 
+
+An empty line starts a new paragraph, like this one.
+You can write \emph{italic} and \textbf{bold} text.   
+
+\section{Example section}
+
+\begin{itemize}
+    \item A bullet point.
+    \item Another bullet point what a sad bullet point
+\end{itemize}
+
+% Prints the reference list. Only cited sources appear;
+% use \nocite{*} above this line to list every entry in references.bib.
+\printbibliography
+
+\end{document}
