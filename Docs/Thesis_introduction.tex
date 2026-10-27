@@ -1,15 +1,13 @@
-% Lines starting with % are comments: they do not appear in the PDF.
 
-% ---- Settings: what kind of document and which extra packages ----
 \documentclass[11pt,a4paper]{report}   % report: a document with chapters
 \usepackage[utf8]{inputenc}            % allows letters with accents
 \usepackage{graphicx}                  % for figures
 \usepackage[margin=2.5cm]{geometry}    % page margins
 
-% ---- References (APA style) ----
-% The references live in references.bib. Cite them with their key:
-%   \parencite{voigt2025} -> (Voigt et al., 2025)
-%   \textcite{voigt2025}  -> Voigt et al. (2025)
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter.}{0.5em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}   % space: left, above, below the title
+
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage[style=apa, backend=biber]{biblatex}
@@ -19,11 +17,11 @@
 % colorlinks gives coloured text instead of boxes; use [hidelinks] for plain black links.
 \usepackage[colorlinks=true, citecolor=blue, linkcolor=black, urlcolor=blue]{hyperref}
 
-\title{Point Taken: Can AI reduce annotation costs for Sample based area estimation for landcover classification change}
-\author{Niek}
+\title{Point Taken: Can AI reduce annotation costs for Sample-based area estimation for landcover classification change}
+\author{Niek Wels}
 \date{\today}
 
-% ---- Everything you write goes between begin{document} and end{document} ----
+
 \begin{document}
 
 \maketitle   % prints the title page from \title, \author and \date above
@@ -80,22 +78,36 @@ through which they learn general patterns and relationships in that data
 foundation model pretrained on large amounts of satellite imagery. It is based on
 the Vision Transformer (ViT) architecture \parencite{dosovitskiy2021} and was
 pretrained by reconstructing masked patches of satellite images
-\parencite{szwarcman2025}. Because of these previously learned patterns,
-geospatial foundation models can outperform models trained from scratch, such as
-CNNs \parencite{simumba2025, szwarcman2025}. Because they start from this pretrained base, they may also need less
-labelled data than a model trained from scratch to reach accurate results
-\parencite{szwarcman2025}.
+\parencite{szwarcman2025}. Because of these previously learned patterns, geospatial foundation models can
+outperform deep learning models trained from scratch, such as CNNs
+ \parencite{szwarcman2025,simumba2025}, and require
+less labelled data to achieve accurate predictions \parencite{szwarcman2025}.
 
-A human relavate how condifdent it is about a point, a Ai can not, since it is important to
-know how certain the ai is about certain points a confidence score needs to be created.
+The labelled data can be used to fine-tune the encoder. Fine-tuning adapts
+the pretrained encoder to the specific task and data, in this case sample point classification.
+Fine-tuning slightly adjusts some of the encoder’s weights. This changes the embeddings it produces.
+The embeddings are the output of the encoder, it creates the 
+spatial patterns and relationships the model found in the data.
+A classification head is added to the model architecture, since
+the model is made for image reconstruction \parencite{szwarcman2025},
+but needs to classify sample points. 
+These adjusted embeddings help the classification head predict classes better \parencite{simumba2025}.
+
+Even so, the fine-tuned model will not classify every sample point correctly, and
+incorrect labels in SBAE can bias the area estimate \parencite{mcroberts2018}.
+A human interpreter can indicate when they are unsure about a point; for a
+model, this has to be derived from its output in the form of a confidence
+score. In this thesis, confidence is expressed as the margin: the difference
+between the probabilities of the two most likely classes \parencite{valle2023}.
+A large margin indicates that the model clearly prefers one class, while a
+small margin indicates doubt between the first and second class. It should
+therefore be checked whether the confidence reflects the accuracy, meaning that
+sample points with a higher confidence are more often classified correctly
+\parencite{geifman2017}. If so, the confidence can be used to determine which
+points still require human interpretation, reducing the annotation costs.
 
 
-Model confidence
-To know how sure the model is the easiest way of cofidence score can be taken, te certainity of the first class and the second
-this quantifies how likely it could have been an other class and thus how certain it is.
 
-The Researchs aim, is to look into the potential of AI as a support tool for human
-annotators to reduce the annotation costs. 
 
 
 %from a probability sample of reference observations, 
@@ -115,18 +127,6 @@ annotators to reduce the annotation costs.
 % by sending the confident AI points to a human it wont lose accuracy, this is important to state so also do not
 % claim it will become more accuracte just more efficeitn
 
-Write your text here. A single Enter does nothing:
-this sentence continues on the same line in the PDF. 
-
-An empty line starts a new paragraph, like this one.
-You can write \emph{italic} and \textbf{bold} text.   
-
-\section{Example section}
-
-\begin{itemize}
-    \item A bullet point.
-    \item Another bullet point what a sad bullet point
-\end{itemize}
 
 % Prints the reference list. Only cited sources appear;
 % use \nocite{*} above this line to list every entry in references.bib.
