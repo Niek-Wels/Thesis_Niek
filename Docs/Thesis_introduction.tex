@@ -1,48 +1,42 @@
 
-\documentclass[11pt,a4paper]{report}   % report: a document with chapters
-\usepackage[utf8]{inputenc}            % allows letters with accents
-\usepackage[T1]{fontenc}               % fonts with accents and italics
-\usepackage{graphicx}                  % for figures
-\graphicspath{{../Title/}}             % the title page images are in the Title folder next to Docs
-\usepackage[margin=2.5cm]{geometry}    % page margins of the thesis text (the title pages set their own)
-\usepackage{titling}                   % \thetitle, \theauthor, \thedate and the titlingpage environment
-\usepackage{wrapfig}                   % the picture next to the text on the title page
-\renewcommand{\familydefault}{\sfdefault}  % sans serif, as the WUR template (Arial in Word)
+\documentclass[11pt,a4paper]{report}   
+\usepackage[utf8]{inputenc}            
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\graphicspath{{../Title/}}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{titling}
+\usepackage{wrapfig}
+\renewcommand{\familydefault}{\sfdefault}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter.}{0.5em}{}
-\titlespacing*{\chapter}{0pt}{0pt}{20pt}   % space: left, above, below the title
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}   
 
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage[style=apa, backend=biber]{biblatex}
 \addbibresource{references.bib}
 
-% WUR dark green for the citations (check the hex code against the WUR house style and change it here if needed).
-\usepackage{xcolor}
-\definecolor{wurgreen}{HTML}{005A32}
 
-% Makes citations, URLs and DOIs clickable in the PDF (keep this package last).
-% colorlinks gives coloured text instead of boxes; use [hidelinks] for plain black links.
+\usepackage{xcolor}
+\definecolor{wurgreen}{HTML}{008900}
 \usepackage[colorlinks=true, citecolor=wurgreen, linkcolor=black, urlcolor=blue]{hyperref}
 
-% Fill these in; they are used on the title pages.
 \title{Point Taken} 
 \newcommand{\thesubtitle}{Can geospatial foundation models reduce annotation costs for Sample-based area estimation for landcover classification change}
 \author{Niek Wels}
 \date{\today}
-\newcommand{\registrationnumber}{xx xx xx xxx xxx}
-\newcommand{\supervisorone}{Name 1}
-\newcommand{\supervisortwo}{Name 2}
-\newcommand{\thesiscode}{GRS-804xx} 
-\newcommand{\thesisreport}{GIRS-2026-xx}
+\newcommand{\registrationnumber}{1770047}
+\newcommand{\supervisorone}{Nandika Tsendbazar}
+\newcommand{\supervisortwo}{Weixiao Gao}
+\newcommand{\thesiscode}{GRS-80436}
+\newcommand{\thesisreport}{GIRS-2026-03}
 
 
 \begin{document}
 
-% WUR Master Thesis title pages, from the WUR LaTeX template (ported from the Word version).
-% The images (cover_grid.png, WUR_RGB_standard.pdf, image2.jpeg) are in ../Title, see graphicspath above.
-\newgeometry{top=1.25cm,bottom=0.96cm,inner=1.91cm,outer=1.91cm,foot=0cm,includeheadfoot} % first page margins
+\newgeometry{top=1.25cm,bottom=0.96cm,inner=1.91cm,outer=1.91cm,foot=0cm,includeheadfoot}
 \begin{titlingpage}
   {\Large Geo-information Science and Remote Sensing}\vspace{0.9cm}
 
@@ -54,11 +48,9 @@
 
   {\bfseries \itshape \thesubtitle}\vspace{2.0cm}
 
-  % The picture takes the right 75% of the page; the name and date stay in the narrow column on the left.
-  % Make the 0.75 bigger or smaller to resize it, and adjust the vspace (padding) if needed.
   \begin{wrapfigure}{r}{0.75\textwidth}
     \vspace{1cm}
-    \includegraphics[width=\linewidth]{cover_grid.png}  % landscape grid: fit to the width of the box
+    \includegraphics[width=\linewidth]{cover_grid.png}
   \end{wrapfigure}
 
   {\Large \theauthor}\vspace{6.0cm}
@@ -69,7 +61,6 @@
 
   \sloppypar{\noindent\makebox[\textwidth]{\hspace*{\dimexpr\evensidemargin-\oddsidemargin}\includegraphics[width=\paperwidth]{image2}}}
 
-  % Second page: the margins of the Word template; for printing you may want inner=1.91cm,outer=1.91cm.
   \newgeometry{top=1.25cm,bottom=1.25cm,inner=0.66cm,outer=0.53cm,foot=1.19cm,includeheadfoot}
   \thispagestyle{empty}
 
@@ -109,7 +100,7 @@
 
   {Laboratory of Geo-Information Science and Remote Sensing}
 \end{titlingpage}
-\restoregeometry   % back to the 2.5 cm margins of the thesis text
+\restoregeometry
 
 \chapter{Introduction}
 
