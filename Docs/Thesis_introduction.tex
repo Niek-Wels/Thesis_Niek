@@ -132,7 +132,6 @@ Furthermore, SBAE quantifies the uncertainty of the area estimate as a confidenc
 interval, which pixel counting cannot provide \parencite{olofsson2014}. Reporting
 this uncertainty is required under the UNFCCC \parencite{ipcc2019}, and higher
 uncertainty can reduce REDD+ results-based payments \parencite{jonckheere2024}.
-
 Uncertainty should therefore be kept as low as possible. One way to
 achieve this is to increase the number of sample points. As land-cover change is a 
 rare event, estimating it precisely requires more samples \parencite{pagliarella2018}.
@@ -193,7 +192,7 @@ Even so, the fine-tuned model will not classify every sample point correctly,
 and incorrect model labels can bias the area estimate, which decreases the overal quality of the data.
 A human interpreter can indicate when they are unsure about a point; for a
 model, this has to be derived from its output in the form of a confidence
-score. In this thesis, confidence is expressed as margin: the difference
+score. A common measure of model confidence is the margin: the difference
 between the probabilities of the two most likely classes \parencite{valle2023}.
 A large margin indicates that the model clearly prefers one class, while a
 small margin indicates doubt between the top two predicted classes. It should
@@ -208,19 +207,19 @@ can bias area estimates, and variability among interpreters increases their
 uncertainty \parencite{mcroberts2018, jonckheere2024}. A model applies the
 same criteria to every sample point.
 
-Recent benchmarking efforts for foundation models have focused on standardising
-accuracy evaluation across different geospatial tasks and datasets
-\parencite{simumba2025}. To date, no research has examined the potential of deep
-learning foundation models to reduce the annotation costs of sample point
-classification.
+Recent benchmarking efforts for geospatial foundation models have focused on
+standardising accuracy evaluation across tasks and datasets
+\parencite{simumba2025, marsocci2025}. Calibration has only recently been
+assessed, and only as an aggregate agreement between confidence and accuracy
+\parencite{lehmann2026}. Whether the confidence of a fine-tuned foundation model
+can identify which sample points, and which classes, can reliably be labelled
+by the model rather than a human interpreter has not yet been examined.
 
 This research therefore differs from previous work in that it focuses on
 optimising the classification of sample points rather than on producing a land
 cover change map. This is done by fine-tuning a foundation model to classify
 land cover change at SBAE sample points and by quantifying the confidence of the
-model.
-
-The aim of this research is to assess whether a fine-tuned foundation model can
+model. The aim of this research is to assess whether a fine-tuned foundation model can
 take over part of the human annotation in SBAE without lowering label quality.
 
 \printbibliography
