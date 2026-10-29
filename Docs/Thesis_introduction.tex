@@ -28,7 +28,7 @@
 
 % Fill these in; they are used on the title pages.
 \title{Point Taken} 
-\newcommand{\thesubtitle}{Can AI reduce annotation costs for Sample-based area estimation for landcover classification change}
+\newcommand{\thesubtitle}{Can geospatial foundation models reduce annotation costs for Sample-based area estimation for landcover classification change}
 \author{Niek Wels}
 \date{\today}
 \newcommand{\registrationnumber}{xx xx xx xxx xxx}
@@ -41,7 +41,7 @@
 \begin{document}
 
 % WUR Master Thesis title pages, from the WUR LaTeX template (ported from the Word version).
-% The images (picture.png, WUR_RGB_standard.pdf, image2.jpeg) are in ../Title, see graphicspath above.
+% The images (cover_grid.png, WUR_RGB_standard.pdf, image2.jpeg) are in ../Title, see graphicspath above.
 \newgeometry{top=1.25cm,bottom=0.96cm,inner=1.91cm,outer=1.91cm,foot=0cm,includeheadfoot} % first page margins
 \begin{titlingpage}
   {\Large Geo-information Science and Remote Sensing}\vspace{0.9cm}
@@ -54,10 +54,11 @@
 
   {\bfseries \itshape \thesubtitle}\vspace{2.0cm}
 
-  % Adjust the vspace (padding) if you use a differently sized picture.
-  \begin{wrapfigure}{r}{0.55\textwidth}
+  % The picture takes the right 75% of the page; the name and date stay in the narrow column on the left.
+  % Make the 0.75 bigger or smaller to resize it, and adjust the vspace (padding) if needed.
+  \begin{wrapfigure}{r}{0.75\textwidth}
     \vspace{1cm}
-    \includegraphics[height=9.5cm]{picture.png}
+    \includegraphics[width=\linewidth]{cover_grid.png}  % landscape grid: fit to the width of the box
   \end{wrapfigure}
 
   {\Large \theauthor}\vspace{6.0cm}
@@ -117,12 +118,11 @@ Landcover- change is mandated by international agreements, for participating cou
 (Reducing Emissions from Deforestation and Forest Degradation) programme of the United Nations Framework
 Convention on Climate Change (UNFCCC). This programme requires developing countries to report changes in land-cover and offers
 results-based payments to countries that demonstrate a verified reduction in carbon emissions resulting from the land-cover change.
-%Oto what AI is doing here now to determine to the maatschappelijke relevantie 
+ 
 To verify this reduction, Sample-Based Area Estimation (SBAE) is used. SBAE is
 a statistical method that estimates the area of land-cover classes from a
 probability sample of random observations \parencite{jonckheere2024}. For
 land-cover change, the area of change is inferred from the sample points
-observed to change class between dates.
 
 Pixel counting from a classified map gives biased area estimates, as omission
 and commission errors do not cancel out \parencite{olofsson2014}.
@@ -154,10 +154,9 @@ Vision Transformers (ViTs), which adapt the transformer architecture from
 language processing to images, were introduced as an alternative to CNNs and
 outperformed them in classification tasks when pretrained on large datasets
 \parencite{dosovitskiy2021}. \textcite{kaselimi2022} further showed that ViTs
-are better equipped to detect rare events such as land cover change. However,
-the effect of using ViTs to classify land cover change at sample points has not
-yet been investigated.
+are better equipped to detect rare events, such as land cover change. 
 
+%this was not really clear that this were other approaches to get to less annotation costs for SBAE below text
 \textcite{tsendbazar2021} showed that change-detection tools such as Breaks For
 Additive Season and Trend (BFAST) can reliably identify stable classes, so that
 those sample points can be reused for later estimations. However, BFAST does not
@@ -167,14 +166,14 @@ spatial context. This additional context around the sample points could help to
 also predict the dynamic classes, where BFAST could not provide such
 information.
 
-One promising type of such models is the foundation model. Foundation models are
+One promising type of such models is Vit based foundation model. Foundation models are
 pretrained in a self-supervised way on large amounts of broad, unlabelled data,
 through which they learn general patterns and relationships in that data
 \parencite{szwarcman2025}. This thesis uses a geospatial foundation model: a
 foundation model pretrained on large amounts of satellite imagery. It is based
 on the ViT architecture and was pretrained by reconstructing masked patches of
 satellite images \parencite{szwarcman2025}. Because of these previously learned
-patterns, geospatial foundation models can outperform deep learning models
+patterns, geospatial foundation models can outperform other deep learning models
 trained from scratch, such as CNNs \parencite{szwarcman2025, simumba2025}, and
 require less labelled data to achieve accurate predictions \parencite{szwarcman2025}.
 
